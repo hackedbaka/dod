@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+
+  namespace :api do
+      resources :questions, except: [:new, :edit]
+  end
+
+
   get "games/" => "games#index", as: :games
   get "games/room/" => "games#room", as: :room 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -13,6 +19,8 @@ Rails.application.routes.draw do
   get 'signout', to: 'sessions#destroy', as: 'signout'
 
   root 'sessions#index',as: :home_session
+
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
