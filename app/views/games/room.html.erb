@@ -41,15 +41,19 @@
 </div>
 <div class="players">
   <div class="p1">
-  <%if current_user%>
+  <%if current_user %>
     <label><%=current_user.name%></label>
-  <%end%>
+  <%else%>
+    player 1
+  <%end%>  
   p1_bet: <div id="p1_bet">0.01</div>
+  
+  <div id="test"></div>
   </div>
   <div class="p2">
   <%if current_user%>
     <%=current_user.name%>
-  p2_bet: 0.01
+  p2_bet: <%=@game.p2_bet%>
   <%end%>
   </div>
 

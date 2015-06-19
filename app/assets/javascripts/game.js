@@ -10,10 +10,7 @@ var channel_name='test_channel';
 var pusher = new Pusher('be43fa2ad18873862a59');
 var channel = pusher.subscribe(channel_name);
     
-channel.bind('my_event', function(data) {
-      
-      
-    });
+
 
 //stopwatch stuff
 function clsStopwatch() {
@@ -110,7 +107,13 @@ $('#button1').click(function(){
     
       var p1_bet=$('#p1_bet').text();
       var params = "p1_bet=" + parseInt(p1_bet) * 2;    
-      var url = '/';
+      var url = 'game/room';
+      $.post(url,params,function(){ console.log("request complete")});
+      channel.bind('my_event', function(data) {
+      var p1_bet = document.getElementsById('test');
+      p1_bet.innerHTML = data.message;
+
+    });
       
     }
 
@@ -118,7 +121,7 @@ $('#button1').click(function(){
 
 $('#button2').click(function(){
     // console.log("button2 "+ this.value );
-  
+  var button=this.value;
     var correct=$('#correct').text();
     if(correct == button)
       $('.modal-body').html("correct");
@@ -129,6 +132,7 @@ $('#button2').click(function(){
 
 $('#button3').click(function(){
     // console.log("button3 "+ this.value);
+    var button=this.value;
    var correct=$('#correct').text();
     if(correct == button)
       $('.modal-body').html("correct");
@@ -139,6 +143,7 @@ $('#button3').click(function(){
 
 $('#button4').click(function(){
     // console.log("button4 "+ this.value);
+    var button=this.value;
     var correct=$('#correct').text();
     if(correct == button)
       $('.modal-body').html("correct");
