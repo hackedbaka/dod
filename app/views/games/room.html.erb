@@ -1,4 +1,4 @@
-<div class="room"> Welcome to room#<%=@roomid%>
+<div class="room"> Welcome to room#<%=@game.room_id%>
 	<div>Time: <span id="time">0</span></div>
   	<button id="start" onclick="start();">start</button>
   	<button id="stop" onclick="stop();">stop</button>
@@ -41,20 +41,37 @@
 </div>
 <div class="players">
   <div class="p1">
-  <%if current_user %>
+  <%if current_user != nil && current_user.name == @game.p1%>
     <label><%=current_user.name%></label>
   <%else%>
     player 1
   <%end%>  
   p1_bet: <div id="p1_bet">0.01</div>
   
-  <div id="test"></div>
+  
   </div>
   <div class="p2">
-  <%if current_user%>
+  <%if current_user != nil && current_user.name == @game.p2%>
     <%=current_user.name%>
   p2_bet: <%=@game.p2_bet%>
   <%end%>
   </div>
-
+  
 </div>
+
+
+<script>
+
+var who = <%=current_user.id%>;
+var player1  = <%= @game.p1 %>;
+var player2  = <%= @game.p2 %>;
+
+
+if ( player1 && player2  ){
+  //start clock
+  start();
+}
+
+
+
+</script>

@@ -10,7 +10,11 @@ var channel_name='test_channel';
 var pusher = new Pusher('be43fa2ad18873862a59');
 var channel = pusher.subscribe(channel_name);
     
+channel.bind('my_event', function(data) {
+      var p1_bet = document.getElementById('p1_bet');
+      p1_bet.innerHTML = data.message;
 
+});
 
 //stopwatch stuff
 function clsStopwatch() {
@@ -104,16 +108,12 @@ $('#button1').click(function(){
     else
     {
       $('.modal-body').html("wrong");
-    
+      console.log($('#p1_bet').text());
       var p1_bet=$('#p1_bet').text();
-      var params = "p1_bet=" + parseInt(p1_bet) * 2;    
-      var url = 'game/room';
+      var params = "p1_bet=" + p1_bet * 2;    
+      var url = '../games/bet';
       $.post(url,params,function(){ console.log("request complete")});
-      channel.bind('my_event', function(data) {
-      var p1_bet = document.getElementsById('test');
-      p1_bet.innerHTML = data.message;
-
-    });
+   
       
     }
 

@@ -8,8 +8,8 @@ class CreateQuestions < ActiveRecord::Migration
       t.string :answer_3
       t.string :answer_4
       t.integer :correct_answer
-      add_reference :questions, :game_id
-
+      add_reference :questions, :games_id
+      
       t.timestamps null: false
     end
   end
