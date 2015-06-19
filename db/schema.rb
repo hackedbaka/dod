@@ -16,6 +16,12 @@ ActiveRecord::Schema.define(version: 20150618192036) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "answers", force: :cascade do |t|
+    t.string   "choice"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "games", force: :cascade do |t|
     t.string   "room_id"
     t.string   "p1"
@@ -36,6 +42,12 @@ ActiveRecord::Schema.define(version: 20150618192036) do
     t.integer  "correct_answer"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+  end
+
+  create_table "survey_entries", force: :cascade do |t|
+    t.string   "choice"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

@@ -47,7 +47,20 @@ text-align:center;
 	font: 30px;
 	height:200px;
 }
-
 .players{
-	
+	margin: auto;
+	text-align: center;
+}
+
+.players .p1, .p2{
+	display: inline-block;
+	border: 1px solid black;
+	text-align:center;
+	font: 30px;
+	height: 100px;
+	width: 100px;
+}
+
+.correct{
+	display:none;
 }

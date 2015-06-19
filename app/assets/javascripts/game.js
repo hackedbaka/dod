@@ -1,3 +1,5 @@
+
+
 // modal stuff
 $('#myModal').on('shown.bs.modal', function () {
   $('#myInput').focus()
@@ -9,12 +11,12 @@ var pusher = new Pusher('be43fa2ad18873862a59');
 var channel = pusher.subscribe(channel_name);
     
 channel.bind('my_event', function(data) {
-      var answer = document.getElementById("answer");
-      answer.innerHTML = data.message;
+      
+      
     });
 
 //stopwatch stuff
-var clsStopwatch = function() {
+function clsStopwatch() {
     // Private vars
     var startAt = 0;  // Time of last start / resume. (0 if not running)
     var lapTime = 0;  // Time on the clock when last stopped in milliseconds
@@ -92,10 +94,58 @@ function reset() {
   x.reset();
   update();
 }
+$(function(){
+
 
 $('#button1').click(function(){
-    console.log(s)  ;
-  //   var params = "answer=" + "button1: " + x.time()/1000;    
-  // var url = '/';
-  // $.post(url,params,function(){ console.log("request complete")});
+    // console.log("button1 " + this.value);
+    
+    var button=this.value;
+    var correct=$('#correct').text();
+    if(correct == button)
+      $('.modal-body').html("correct");
+    else
+    {
+      $('.modal-body').html("wrong");
+    
+      var p1_bet=$('#p1_bet').text();
+      var params = "p1_bet=" + parseInt(p1_bet) * 2;    
+      var url = '/';
+      
+    }
+
 });
+
+$('#button2').click(function(){
+    // console.log("button2 "+ this.value );
+  
+    var correct=$('#correct').text();
+    if(correct == button)
+      $('.modal-body').html("correct");
+    else
+      $('.modal-body').html("wrong");
+  
+});
+
+$('#button3').click(function(){
+    // console.log("button3 "+ this.value);
+   var correct=$('#correct').text();
+    if(correct == button)
+      $('.modal-body').html("correct");
+    else
+      $('.modal-body').html("wrong");
+
+});
+
+$('#button4').click(function(){
+    // console.log("button4 "+ this.value);
+    var correct=$('#correct').text();
+    if(correct == button)
+      $('.modal-body').html("correct");
+    else
+      $('.modal-body').html("wrong");
+ 
+});
+
+});
+
