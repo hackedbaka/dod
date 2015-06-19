@@ -1,16 +1,26 @@
 Rails.application.routes.draw do
+
+  namespace :api do
+      resources :questions, except: [:new, :edit]
+  end
+
+
+  get "games/" => "games#index", as: :games
+  get "games/room/" => "games#room", as: :room 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
 
-  root 'sessions#index',as: :home_session
-
-
   # with these three OAuth routes
+  
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
   get 'signout', to: 'sessions#destroy', as: 'signout'
+
+  root 'sessions#index',as: :home_session
+
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

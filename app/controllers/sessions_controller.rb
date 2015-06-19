@@ -20,6 +20,7 @@ class SessionsController < ApplicationController
     flash["alert-success"] = "You have logged out"
     redirect_to home_session_path
   end
+  
   private
 
   def user_params
