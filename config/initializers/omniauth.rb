@@ -3,7 +3,7 @@ OmniAuth.config.logger = Rails.logger
 provider :google_oauth2,
     ENV['OAUTH_CLIENT_ID'],
     ENV['OAUTH_CLIENT_SECRET'], {
-    redirect_uri:"http://localhost:3000/auth/google_oauth2/callback"
+    # redirect_uri:"http://localhost:3000/auth/google_oauth2/callback"
     # redirect_uri:"https://doubleordonate.herokuapp.com/auth/google_oauth2/callback"
 }
     
