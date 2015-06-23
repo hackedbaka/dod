@@ -1,11 +1,3 @@
-
-
-// modal stuff
-$('#myModal').on('shown.bs.modal', function () {
-  $('#myInput').focus()
-})
-
-
 //stopwatch stuff
 function clsStopwatch() {
     // Private vars
@@ -85,6 +77,10 @@ function reset() {
   x.reset();
   update();
 }
+
+
+
+
 $(function(){
 
 
@@ -155,7 +151,7 @@ $('#button4').click(function(){
       };    
       var url = '../games/answered';
       $.post(url,params,function(){ });
-  
+
     // console.log("button4 "+ this.value);
     // var button=this.value;
     // var correct=$('#correct').text();
@@ -165,6 +161,8 @@ $('#button4').click(function(){
     //   $('.modal-body').html("wrong");
  
 });
+
+
 
 });
 

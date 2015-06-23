@@ -15,11 +15,9 @@ class GamesController < ApplicationController
 	        if @game && !@game.p2
 	        	##if p1 is empty, assign the player as player 1
 	            @game.p2 = current_user.id
-
-	        # elsif !@game.p2
-	        # 	##if p2 is empty, assing the player as player 2
-	        # 	@game.p2 = current_user.id
-
+				Pusher[@game.room_id].trigger('start_game', {
+					dummy: ""
+		      	});
 	        else
 	            ##initialize game       	
 	        	@game = Game.create
@@ -47,5 +45,7 @@ class GamesController < ApplicationController
       	});
       	render nothing: true, status: 200
 	end	
+
+	
 
 end

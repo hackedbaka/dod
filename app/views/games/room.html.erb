@@ -13,20 +13,20 @@
 
   <!-- Button trigger modal -->
   <div class="abutton">
-  <button type="button" class="btn btn-primary btn-lg" id="button1" value="1"><%=@game.question.answer_1%></button>
-  <button type="button" class="btn btn-primary btn-lg" id="button2" value="2"><%=@game.question.answer_2%></button>
-  <button type="button" class="btn btn-primary btn-lg" id="button3" value="3"><%=@game.question.answer_3%></button>
-<button type="button" class="btn btn-primary btn-lg" id="button4" value="4"><%=@game.question.answer_4%></button>
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="button1" value="1"><%=@game.question.answer_1%></button>
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="button2" value="2"><%=@game.question.answer_2%></button>
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="button3" value="3"><%=@game.question.answer_3%></button>
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="button4" value="4"><%=@game.question.answer_4%></button>
 </div>  
 <div id="correct" class="correct"><%=@game.question.correct_answer%></div>
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="myModal" data-backdrop="static" data-keyboard="false"tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel">Result</h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" id="modal-body">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -38,7 +38,7 @@
 </div>
 <div class="players">
   <div class="p1">
-  <%if current_user != nil && current_user.name == @game.p1%>
+  <%if current_user.id == @game.p1%>
     <label><%=current_user.name%></label>
   <%else%>
     player 1
@@ -48,10 +48,7 @@
   
   </div>
   <div class="p2">
-  <%if current_user != nil && current_user.name == @game.p2%>
-    <%=current_user.name%>
-  p2_bet: <%=@game.p2_bet%>
-  <%end%>
+  
   </div>
   
 </div>
@@ -59,21 +56,11 @@
 
 <script>
 
-// $('#myModal').modal({
-//   keyboard:"false",
-//   backdrop:"static" 
-// });
 
 var who = <% if @game.p1 == current_user.id.to_s %>1<% else %>2<% end %>;
 
 var player1  = <%= @game.p1 %>;
 var player2  = <%= @game.p2 || 'null' %>;
-
-
-if ( player1 && player2  ){
-  //start clock
-  start();
-}
 
 // pusher stuff
 var channel_name='<%= @game.room_id %>';
@@ -81,14 +68,22 @@ var pusher = new Pusher('be43fa2ad18873862a59');
 var channel = pusher.subscribe(channel_name);
     
 channel.bind('answered', function(data) {
+    
     if (data.player == who) {
-      $(".modal-body").html = data.correct ? "Nice!" : "Bummer";
+
       console.log("answering player is correct: " + data.correct);
+      document.getElementById("modal-body").innerHTML = data.correct ? "Nice!" : "Bummer";
+      
     } else {
-      $(".modal-body").html = data.correct ? "Other dude answered correctly :(" : "Other dude messed up :)";
       console.log("other player is correct: " + data.correct);
+      document.getElementById("modal-body").innerHTML = data.correct ? "Other dude answered correctly :(" : "Other dude messed up :)";
+    
     }
-    // $("#myModal").modal('show');
+
+});
+
+channel.bind('start_game', function(data) {
+    start();
 });
 </script>
 
