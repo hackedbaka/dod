@@ -37,12 +37,15 @@ class GamesController < ApplicationController
 		
 	end
 
-	def bet
-		@game =Game.first
-       	@game.update_attributes(p1_bet: params[:p1_bet])
-		Pusher['test_channel'].trigger('my_event', {
-      		message: params[:p1_bet]
-    	}) 
+	def answered
+		@game = Game.find_by(p1: current_user.id)
+		@game = Game.find_by(p2: current_user.id) if !@game
+       	correct = (@game.question.correct_answer.to_s == params[:choice])
+		Pusher[@game.room_id].trigger('answered', {
+			player: params[:player],
+      		correct: correct
+      	});
+      	render nothing: true, status: 200
 	end	
 
 end

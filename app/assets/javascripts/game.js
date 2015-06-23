@@ -91,54 +91,78 @@ $(function(){
 $('#button1').click(function(){
     // console.log("button1 " + this.value);
     
-    var button=this.value;
-    var correct=$('#correct').text();
-    if(correct == button)
-      $('.modal-body').html("correct");
-    else
-    {
-      $('.modal-body').html("wrong");
-      console.log($('#p1_bet').text());
-      var p1_bet=$('#p1_bet').text();
-      var params = "p1_bet=" + p1_bet * 2;    
-      var url = '../games/bet';
-      $.post(url,params,function(){ console.log("request complete")});
+    // var button=this.value;
+    // var correct=$('#correct').text();
+    // if(correct == button)
+    //   $('.modal-body').html("correct");
+    // else
+    // {
+    //   $('.modal-body').html("wrong");
+    //   // console.log($('#p1_bet').text());
+    //   var p1_bet=$('#p1_bet').text();
+      var params = {
+        player: who,
+        choice: this.value
+      };    
+      var url = '../games/answered';
+      $.post(url,params,function(){ });
    
       
-    }
+    // }
 
 });
 
 $('#button2').click(function(){
+      var params = {
+      player: who,
+      choice: this.value
+      };    
+      var url = '../games/answered';
+      $.post(url,params,function(){ });
+
     // console.log("button2 "+ this.value );
-  var button=this.value;
-    var correct=$('#correct').text();
-    if(correct == button)
-      $('.modal-body').html("correct");
-    else
-      $('.modal-body').html("wrong");
+  // var button=this.value;
+  //   var correct=$('#correct').text();
+  //   if(correct == button)
+  //     $('.modal-body').html("correct");
+  //   else
+  //     $('.modal-body').html("wrong");
   
 });
 
 $('#button3').click(function(){
+      var params = {
+      player: who,
+      choice: this.value
+      };    
+      var url = '../games/answered';
+      $.post(url,params,function(){ });
+
     // console.log("button3 "+ this.value);
-    var button=this.value;
-   var correct=$('#correct').text();
-    if(correct == button)
-      $('.modal-body').html("correct");
-    else
-      $('.modal-body').html("wrong");
+   //  var button=this.value;
+   // var correct=$('#correct').text();
+   //  if(correct == button)
+   //    $('.modal-body').html("correct");
+   //  else
+   //    $('.modal-body').html("wrong");
 
 });
 
 $('#button4').click(function(){
+      var params = {
+        player: who,
+        choice: this.value
+      };    
+      var url = '../games/answered';
+      $.post(url,params,function(){ });
+  
     // console.log("button4 "+ this.value);
-    var button=this.value;
-    var correct=$('#correct').text();
-    if(correct == button)
-      $('.modal-body').html("correct");
-    else
-      $('.modal-body').html("wrong");
+    // var button=this.value;
+    // var correct=$('#correct').text();
+    // if(correct == button)
+    //   $('.modal-body').html("correct");
+    // else
+    //   $('.modal-body').html("wrong");
  
 });
 

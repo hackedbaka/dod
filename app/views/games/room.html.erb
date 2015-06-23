@@ -13,14 +13,14 @@
 
   <!-- Button trigger modal -->
   <div class="abutton">
-  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="button1" value="1"><%=@game.question.answer_1%></button>
-  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="button2" value="2"><%=@game.question.answer_2%></button>
-  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="button3" value="3"><%=@game.question.answer_3%></button>
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="button4" value="4"><%=@game.question.answer_4%></button>
+  <button type="button" class="btn btn-primary btn-lg" id="button1" value="1"><%=@game.question.answer_1%></button>
+  <button type="button" class="btn btn-primary btn-lg" id="button2" value="2"><%=@game.question.answer_2%></button>
+  <button type="button" class="btn btn-primary btn-lg" id="button3" value="3"><%=@game.question.answer_3%></button>
+<button type="button" class="btn btn-primary btn-lg" id="button4" value="4"><%=@game.question.answer_4%></button>
 </div>  
 <div id="correct" class="correct"><%=@game.question.correct_answer%></div>
 <!-- Modal -->
-<div class="modal fade" data-keyboard="false" data-backdrop="static" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -59,7 +59,13 @@
 
 <script>
 
-var who = <% if @game.p1 == current_user.id%>1<% else %>2<% end %>;
+// $('#myModal').modal({
+//   keyboard:"false",
+//   backdrop:"static" 
+// });
+
+var who = <% if @game.p1 == current_user.id.to_s %>1<% else %>2<% end %>;
+
 var player1  = <%= @game.p1 %>;
 var player2  = <%= @game.p2 || 'null' %>;
 
@@ -74,10 +80,15 @@ var channel_name='<%= @game.room_id %>';
 var pusher = new Pusher('be43fa2ad18873862a59');
 var channel = pusher.subscribe(channel_name);
     
-channel.bind('my_event', function(data) {
-      var p1_bet = document.getElementById('p1_bet');
-      p1_bet.innerHTML = data.message;
-
+channel.bind('answered', function(data) {
+    if (data.player == who) {
+      $(".modal-body").html = data.correct ? "Nice!" : "Bummer";
+      console.log("answering player is correct: " + data.correct);
+    } else {
+      $(".modal-body").html = data.correct ? "Other dude answered correctly :(" : "Other dude messed up :)";
+      console.log("other player is correct: " + data.correct);
+    }
+    // $("#myModal").modal('show');
 });
 </script>
 
