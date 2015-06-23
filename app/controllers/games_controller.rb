@@ -29,10 +29,9 @@ class GamesController < ApplicationController
 				@game.room_id = SecureRandom.hex(12)
 				@game.p1_bet = 0.01
 				@game.p2_bet = 0.01
+		    	@game.question = @game.questions[rand(0..@game.questions.length-1)]
 
 	        end
-	        puts @game
-		    @game.question = @game.questions[rand(0..@game.questions.length-1)]
 	    	@game.save
 	    end
 		

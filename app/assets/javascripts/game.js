@@ -5,16 +5,6 @@ $('#myModal').on('shown.bs.modal', function () {
   $('#myInput').focus()
 })
 
-// pusher stuff
-var channel_name='test_channel';
-var pusher = new Pusher('be43fa2ad18873862a59');
-var channel = pusher.subscribe(channel_name);
-    
-channel.bind('my_event', function(data) {
-      var p1_bet = document.getElementById('p1_bet');
-      p1_bet.innerHTML = data.message;
-
-});
 
 //stopwatch stuff
 function clsStopwatch() {

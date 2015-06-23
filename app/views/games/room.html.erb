@@ -59,9 +59,9 @@
 
 <script>
 
-var who = <%=current_user.id%>;
+var who = <% if @game.p1 == current_user.id%>1<% else %>2<% end %>;
 var player1  = <%= @game.p1 %>;
-var player2  = <%= @game.p2 %>;
+var player2  = <%= @game.p2 || 'null' %>;
 
 
 if ( player1 && player2  ){

@@ -23,6 +23,17 @@
 <%= render 'layouts/navbar'%>
 <%= yield %>
 
+<script>
+// pusher stuff
+var channel_name='<%= @game.room_id %>';
+var pusher = new Pusher('be43fa2ad18873862a59');
+var channel = pusher.subscribe(channel_name);
+    
+channel.bind('my_event', function(data) {
+      var p1_bet = document.getElementById('p1_bet');
+      p1_bet.innerHTML = data.message;
 
+});
+</script>
 </body>
 </html>
