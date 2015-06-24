@@ -87,12 +87,12 @@ channel.bind('answered', function(data) {
       if(data.correct){
 
       document.getElementById("modal-body").innerHTML = "Nice! You are correct";
-      document.getElementById("p1_bet").innerHTML = document.getElementById("p1_bet").innerHTML*2; 
+      // document.getElementById("p1_bet").innerHTML = document.getElementById("p1_bet").innerHTML*2; 
        
       }
       else{
          document.getElementById("modal-body").innerHTML ="Bummer, you got it wrong";
-         document.getElementById("p2_bet").innerHTML = document.getElementById("p2_bet").innerHTML*2;
+         
       }
 
         
