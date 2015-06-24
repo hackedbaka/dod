@@ -47,9 +47,7 @@ class GamesController < ApplicationController
       	render nothing: true, status: 200
 	end	
 
-	def another
-		
-	end
+	
 
 	
 
