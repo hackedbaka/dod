@@ -1,0 +1,28 @@
+<ul>
+	<%= link_to "Create new question", new_admin_path %>
+</ul>
+
+
+<ul id="questions">
+</ul>
+
+
+<script>
+$.ajax("/api/questions", {
+	success: function(data){
+		data.forEach(function(q){
+			var s = '<li>' + "ID # " + q.id + " - " + q.text + '<br>';
+			s += '<a confirm="You sure?" rel="nofollow" data-method="delete" href="/admin/'
+			s += q.id + '">delete</a> | <a href="/admin/';
+			s += q.id + '/edit">Edit this question</a>';
+			$('#questions').append(s + '</li>');
+		});
+	}
+});
+ </script>
+
+
+ 
+
+
+ <!-- <a href="/admin/484/edit">Edit this question</a> -->
