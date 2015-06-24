@@ -17,6 +17,7 @@
   <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="button2" value="2"><%=@game.question.answer_2%></button>
   <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="button3" value="3"><%=@game.question.answer_3%></button>
 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="button4" value="4"><%=@game.question.answer_4%></button>
+<button type="button" data-toggle="modal" data-target="#myModal" id="dummy-btn" ></button>
 </div>  
 <div id="correct" class="correct"><%=@game.question.correct_answer%></div>
 <!-- Modal -->
@@ -100,7 +101,7 @@ channel.bind('answered', function(data) {
       console.log("other player is correct: " + data.correct);
       if(data.correct){
 
-      document.getElementById("modal-body").innerHTML ="Other dude answered correctly :(";
+        document.getElementById("modal-body").innerHTML = "Other dude answered correctly :(";
 
       }
       else{
@@ -108,6 +109,7 @@ channel.bind('answered', function(data) {
         
 
       }
+      document.getElementById("dummy-btn").click();
     
     }
 
