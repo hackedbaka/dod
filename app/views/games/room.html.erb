@@ -102,11 +102,11 @@ channel.bind('answered', function(data) {
       if(data.correct){
 
       document.getElementById("modal-body").innerHTML ="Other dude answered correctly :(";
-        document.getElementById("p2_bet").innerHTML = document.getElementById("p2_bet").innerHTML*2;
+
       }
       else{
         document.getElementById("modal-body").innerHTML = "Other dude messed up :)";
-        document.getElementById("p1_bet").innerHTML = document.getElementById("p1_bet").innerHTML*2; 
+        
 
       }
     
