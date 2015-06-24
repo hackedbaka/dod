@@ -15,9 +15,22 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><%= link_to "Index page", games_path, method: :get %></li>
-        <li><%= link_to "New Room", room_path, method: :get %></li>
+        <li><%= link_to "Enter a Room", room_path, method: :get %></li>
       </ul>
-      
+
+      <div class="nav navbar-right" >
+      <ul class="nav navbar-nav">
+        <li>
+          <% if current_user  %>
+            Signed in as <%=current_user.name%>
+          <% else %>
+            Not signed in
+          <%end%>
+        </li>
+
+       </ul>
+               
+      </div>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

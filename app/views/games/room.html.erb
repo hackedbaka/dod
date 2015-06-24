@@ -34,8 +34,8 @@
       <div class="modal-body" id="modal-body">
       </div>
       <div class="modal-footer">
-        <button type="button" id="double"class="btn btn-default" data-dismiss="modal">Double</button>
-        <button type="button" id="donate"class="btn btn-default" data-dismiss="modal">Donate</button>
+        <button type="button" id="double" class="btn btn-default" data-dismiss="modal">Double</button>
+        <button type="button" id="donate" class="btn btn-default" data-dismiss="modal">Donate</button>
         <button type="button" id="close"class="btn btn-default" data-dismiss="modal">Close</button>
 
         
@@ -88,8 +88,10 @@ channel.bind('start_game', function(data) {
 
 channel.bind('start_another', function(data) {
    location.reload(true);
-    
-   
+});
+
+channel.bind('kick_time', function(data) {
+   document.getElementById("index").click(); 
 });
     
 channel.bind('answered', function(data) {
@@ -126,9 +128,6 @@ channel.bind('answered', function(data) {
 
 });
 
-
-
-
 $('#double').click(function(){
   //get next question, double loser bet, reset timer
 
@@ -139,7 +138,9 @@ $('#double').click(function(){
 
 $('#donate').click(function(){
   //delete current game, give winner current bet from loser, and kick out both players to index page
- $.post('../games/game_end',{},function(){ });
+var params = { player: who  };
+ $.post('../games/game_end',params,function(){ });
+ window.location.href = "../games/";
 
 });
 

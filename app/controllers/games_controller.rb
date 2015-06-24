@@ -15,8 +15,7 @@ class GamesController < ApplicationController
 	        if @game && !@game.p2
 	        	##if p1 is empty, assign the player as player 1
 	            @game.p2 = current_user.id
-				Pusher[@game.room_id].trigger('start_game', {
-		      	});
+				Pusher[@game.room_id].trigger('start_game', {});
 	        else
 	            ##initialize game       	
 	        	@game = Game.create
@@ -69,15 +68,28 @@ class GamesController < ApplicationController
 		@game = Game.find_by(p2: current_user.id) if !@game
 		@game.question = @game.questions[rand(0..@game.questions.length-1)]
 
-		Pusher[@game.room_id].trigger('start_another', {
-		      	});
+		Pusher[@game.room_id].trigger('start_another', {});
 	end
 
 	def game_end
+		@game = Game.find_by(p1: current_user.id)
+		@game = Game.find_by(p2: current_user.id) if !@game
+		# @user1 = User.find_by(p1: current_user.id)
+		# @user2 = User.find_by(p2: current_user.id)
 		#transfer bet amount from game to players
-		
+		# if params[:player] == '1'
+		# 	@user1.donated.to_f += @game.p1_bet
+		# 	@user2.earned.to_f += @game.p1_bet
+		# else
+		# 	@user2.donated.to_f += @game.p2_bet
+		# 	@user1.earned.to_f += @game.p2_bet
 
-		# @game.delete
+		# end
+		# @user.save
+
+		Pusher[@game.room_id].trigger('kick_time', {});
+
+		@game.delete
 
 	end
 
