@@ -40,6 +40,23 @@ class GamesController < ApplicationController
 		@game = Game.find_by(p1: current_user.id)
 		@game = Game.find_by(p2: current_user.id) if !@game
        	correct = (@game.question.correct_answer.to_s == params[:choice])
+
+		# update bets
+		if params[:player] == '1'
+			if correct
+				@game.p2_bet *= 2
+			else
+				@game.p1_bet *= 2 
+			end
+		else
+			if correct
+				@game.p1_bet *= 2
+			else
+				@game.p2_bet *= 2 
+			end
+		end
+		@game.save
+
 		Pusher[@game.room_id].trigger('answered', {
 			player: params[:player],
       		correct: correct
@@ -47,8 +64,21 @@ class GamesController < ApplicationController
       	render nothing: true, status: 200
 	end	
 
-	
+	def start_another
+		@game = Game.find_by(p1: current_user.id)
+		@game = Game.find_by(p2: current_user.id) if !@game
+		@game.question = @game.questions[rand(0..@game.questions.length-1)]
 
-	
+		Pusher[@game.room_id].trigger('start_another', {
+		      	});
+	end
+
+	def game_end
+		#transfer bet amount from game to players
+		
+
+		# @game.delete
+
+	end
 
 end

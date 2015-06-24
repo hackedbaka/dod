@@ -4,21 +4,24 @@
   	<button id="stop" onclick="stop();">stop</button>
   	<button id="reset" onclick="reset();">reset</button>
 </div>
-<div class="question">
-	Question: <%=@game.question.text%>
 
+<div class="question">
+  <div class="<% if @game.p2 == nil %>hide-question<% end %>">
+	Question: <%=@game.question.text%>
+  </div>
 </div>
 <div id="answer" class="answer">
 	Answers:
 
   <!-- Button trigger modal -->
-  <div class="abutton">
-  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="button1" value="1"><%=@game.question.answer_1%></button>
-  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="button2" value="2"><%=@game.question.answer_2%></button>
-  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="button3" value="3"><%=@game.question.answer_3%></button>
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="button4" value="4"><%=@game.question.answer_4%></button>
-<button type="button" data-toggle="modal" data-target="#myModal" id="dummy-btn" ></button>
+  <div class="<% if @game.p2 == nil %>hide-abutton<%else%>abutton<% end %>">
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="button1" value="1"><%=@game.question.answer_1%></button>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="button2" value="2"><%=@game.question.answer_2%></button>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="button3" value="3"><%=@game.question.answer_3%></button>
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="button4" value="4"><%=@game.question.answer_4%></button>
+  <button type="button" data-toggle="modal" data-target="#myModal" id="dummy-btn" ></button>
 </div>  
+
 <div id="correct" class="correct"><%=@game.question.correct_answer%></div>
 <!-- Modal -->
 <div class="modal fade" id="myModal" data-backdrop="static" data-keyboard="false"tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -31,7 +34,10 @@
       <div class="modal-body" id="modal-body">
       </div>
       <div class="modal-footer">
+        <button type="button" id="double"class="btn btn-default" data-dismiss="modal">Double</button>
+        <button type="button" id="donate"class="btn btn-default" data-dismiss="modal">Donate</button>
         <button type="button" id="close"class="btn btn-default" data-dismiss="modal">Close</button>
+
         
       </div>
     </div>
@@ -45,7 +51,7 @@
   <%else%>
     player 1
   <%end%>  
-  p1_bet: <div id="p1_bet">0.01</div>
+  p1_bet: <div id="p1_bet"><%=@game.p1_bet%></div>
   
   
   </div>
@@ -55,7 +61,7 @@
   <%else%>
     player 2
   <%end%> 
-  p2_bet: <div id="p2_bet">0.01</div>
+  p2_bet: <div id="p2_bet"><%=@game.p2_bet%></div>
   
   </div>
   
@@ -76,54 +82,66 @@ var pusher = new Pusher('be43fa2ad18873862a59');
 var channel = pusher.subscribe(channel_name);
 
 channel.bind('start_game', function(data) {
-    reset();
-    start();
+  // show question with answers and start timer
+
+});
+
+channel.bind('start_another', function(data) {
+   location.reload(true);
+    
+   
 });
     
 channel.bind('answered', function(data) {
     
     if (data.player == who) {
-
-      console.log("answering player is correct: " + data.correct);
+      // console.log("answering player is correct: " + data.correct);
       if(data.correct){
-
-      document.getElementById("modal-body").innerHTML = "Nice! You are correct";
-       
+        document.getElementById("modal-body").innerHTML = "Nice! You are correct";   
+          $("#donate").hide();
+          $("#double").hide();    
       }
       else{
-         document.getElementById("modal-body").innerHTML ="Bummer, you got it wrong";
-         
-      }
+         document.getElementById("modal-body").innerHTML ="Bummer, you got it wrong";  
+          $("#donate").show();
+          $("#double").show();
 
-        
+      }       
     } 
     else {
-      console.log("other player is correct: " + data.correct);
+      // console.log("other player is correct: " + data.correct);
       if(data.correct){
-
         document.getElementById("modal-body").innerHTML = "Other dude answered correctly :(";
-
+          $("#donate").show();
+          $("#double").show();
       }
       else{
         document.getElementById("modal-body").innerHTML = "Other dude messed up :)";
-        
-
+          $("#donate").hide();
+          $("#double").hide(); 
       }
-      document.getElementById("dummy-btn").click();
-    
+      //pop out modal for other player
+      document.getElementById("dummy-btn").click();    
     }
 
 });
 
-channel.bind('another_game', function(data) {
 
-    reset();
-    start();
 
+
+$('#double').click(function(){
+  //get next question, double loser bet, reset timer
+
+  $.post('../games/start_another',{},function(){ });
+  document.getElementById("close").click(); 
+  
 });
 
+$('#donate').click(function(){
+  //delete current game, give winner current bet from loser, and kick out both players to index page
+ $.post('../games/game_end',{},function(){ });
 
-
+});
 
 </script>
 

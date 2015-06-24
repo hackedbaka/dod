@@ -7,7 +7,9 @@ Rails.application.routes.draw do
 
   get "games/" => "games#index", as: :games
   get "games/room/" => "games#room", as: :room 
-  post "games/answered" => "games#answered", as: :answered
+  post "games/answered" => "games#answered"
+  post "games/start_another" => "games#start_another"
+  post "games/game_end" => "games#game_end"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
