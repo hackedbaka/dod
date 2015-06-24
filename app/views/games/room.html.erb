@@ -25,6 +25,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel">Result</h4>
+      
       </div>
       <div class="modal-body" id="modal-body">
       </div>
@@ -48,6 +49,12 @@
   
   </div>
   <div class="p2">
+  <%if current_user.id == @game.p2%>
+    <label><%=current_user.name%></label>
+  <%else%>
+    player 2
+  <%end%> 
+  p2_bet: <div id="p2_bet">0.01</div>
   
   </div>
   
@@ -66,25 +73,52 @@ var player2  = <%= @game.p2 || 'null' %>;
 var channel_name='<%= @game.room_id %>';
 var pusher = new Pusher('be43fa2ad18873862a59');
 var channel = pusher.subscribe(channel_name);
+
+channel.bind('start_game', function(data) {
+    reset();
+    start();
+});
     
 channel.bind('answered', function(data) {
     
     if (data.player == who) {
 
       console.log("answering player is correct: " + data.correct);
-      document.getElementById("modal-body").innerHTML = data.correct ? "Nice!" : "Bummer";
-      
-    } else {
+      if(data.correct){
+
+      document.getElementById("modal-body").innerHTML = "Nice! You are correct";
+      document.getElementById("p1_bet").innerHTML = document.getElementById("p1_bet").innerHTML*2; 
+       
+      }
+      else{
+         document.getElementById("modal-body").innerHTML ="Bummer, you got it wrong";
+         document.getElementById("p2_bet").innerHTML = document.getElementById("p2_bet").innerHTML*2;
+      }
+
+        
+    } 
+    else {
       console.log("other player is correct: " + data.correct);
-      document.getElementById("modal-body").innerHTML = data.correct ? "Other dude answered correctly :(" : "Other dude messed up :)";
+      if(data.correct){
+
+      document.getElementById("modal-body").innerHTML ="Other dude answered correctly :(";
+      }
+      else{
+        document.getElementById("modal-body").innerHTML = "Other dude messed up :)";
+      }
     
     }
 
 });
 
-channel.bind('start_game', function(data) {
+channel.bind('another_game', function(data) {
+
+    reset();
     start();
+
 });
+
+
 </script>
 
 
