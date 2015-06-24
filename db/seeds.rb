@@ -109,4 +109,3 @@ questions = Question.create(
     {category:4, text:"What, if decreased, will lower the boiling point of water?", answer_1:"Altitude", answer_2:"Pressure", answer_3:"Salt content", answer_4:"Temperature", correct_answer:2},
     {category:4, text:"What is the more common name for the white crystalline salt called hydrated sodium pyroborate?", answer_1:"Fire lighters", answer_2:"Heroin", answer_3:"Borax", answer_4:"Boron", correct_answer:3}])
 
-game = Game.create([{room_id:"",p1:"",p1_bet:0.01,p2:"",p2_bet:0.01}])
