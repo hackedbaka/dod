@@ -16,6 +16,10 @@ gem 'coffee-rails', '~> 4.1.0'
 
 gem 'omniauth-google-oauth2'
 
+gem 'omniauth-twitter'
+
+gem 'bootstrap-sass'
+
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
