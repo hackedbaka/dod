@@ -1,9 +1,10 @@
 OmniAuth.config.logger = Rails.logger
 
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :google_oauth2, '730973355649-vu2o61sssrjbklu4fo6imilnufuf9g19.apps.googleusercontent.com', 'KAWMdEBZ5wUSovfM3N1QHiLj'
+   provider :google_oauth2, ENV['GOOGLE_ID'], ENV['GOOGLE_SECRET'], 
+    redirect_uri:"https://doubleordonate.herokuapp.com/auth/google_oauth2/callback"
 
-  provider :twitter, 'xdwyNEyCVzUTPjdEzqkSR7hfo', 'k6k5OPrcDmURrlCM8hveU5tTmESXTzkoYGZf1UvE8spwl4skjl'
+  provider :twitter, ENV['twitter_id'], ENV['twitter_secret']
   OmniAuth.config.on_failure = Proc.new do |env|
     SessionsController.action(:auth_failure).call(env)
   end
