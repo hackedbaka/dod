@@ -90,7 +90,7 @@ $(function(){
           };    
           var url = '../games/answered';
           $.post(url,params,function(){ });
-
+      
     });
 
     $('#button2').click(function(){
@@ -100,8 +100,7 @@ $(function(){
           };    
           var url = '../games/answered';
           $.post(url,params,function(){ });
-
-      
+  
     });
 
     $('#button3').click(function(){
@@ -112,8 +111,6 @@ $(function(){
           var url = '../games/answered';
           $.post(url,params,function(){ });
 
-
-
     });
 
     $('#button4').click(function(){
@@ -123,10 +120,12 @@ $(function(){
           };    
           var url = '../games/answered';
           $.post(url,params,function(){ });
-
-      
-     
+          
+  
     });
+
+    $('#start').click(function(){start();});
+    $('#reset').click(function(){reset();});
 
 
 });

@@ -1,9 +1,9 @@
-<div class="room"> Welcome to room#<%=@roomid%>
+<div class="room"> Welcome to room#<%=@game.room_id%>
 
-	<div>Time: <span id="time">0</span></div>
-  	<button id="start" onclick="start();">start</button>
-  	<button id="stop" onclick="stop();">stop</button>
-  	<button id="reset" onclick="reset();">reset</button>
+	<div>Time: <span id="time">00:00:00:000</span></div>
+  	<button id="start" >start</button>
+  	<button id="reset" >reset</button>
+    
 </div>
 
 
@@ -35,11 +35,13 @@
       </div>
       <div class="modal-body" id="modal-body">
       </div>
-      <div class="modal-footer">
-        <button type="button" id="double" class="btn btn-default" data-dismiss="modal">Double</button>
-        <button type="button" id="donate" class="btn btn-default" data-dismiss="modal">Donate</button>
-        <button type="button" id="close"class="btn btn-default" data-dismiss="modal">Close</button>
 
+      <div class="modal-footer">
+         <button type="button" id="again" class="btn btn-default" data-dismiss="modal">Again</button>
+        <button type="button" id="run" class="btn btn-default" data-dismiss="modal">Run</button>
+        <!-- disabled buttons until click -->
+        <button type="button" id="double" class="btn btn-default" data-dismiss="modal" >Double</button>
+        <button type="button" id="donate" class="btn btn-default" data-dismiss="modal" >Donate</button>
         
       </div>
     </div>
@@ -74,7 +76,6 @@
 
 
 var who = <% if @game.p1 == current_user.id.to_s %>1<% else %>2<% end %>;
-
 var player1  = <%= @game.p1 %>;
 var player2  = <%= @game.p2 || 'null' %>;
 
@@ -85,15 +86,21 @@ var channel = pusher.subscribe(channel_name);
 
 channel.bind('start_game', function(data) {
   // show question with answers and start timer
+   
+  
+      reset();
+      start();
+    
 
 });
 
 channel.bind('start_another', function(data) {
    location.reload(true);
+   
 });
 
 channel.bind('kick_time', function(data) {
-   document.getElementById("index").click(); 
+   location.href = "../games/"; 
 });
     
 channel.bind('answered', function(data) {
@@ -104,11 +111,15 @@ channel.bind('answered', function(data) {
         document.getElementById("modal-body").innerHTML = "Nice! You are correct";   
           $("#donate").hide();
           $("#double").hide();    
+          $("#run").show();    
+          $("#again").show();    
       }
       else{
          document.getElementById("modal-body").innerHTML ="Bummer, you got it wrong";  
           $("#donate").show();
           $("#double").show();
+          $("#run").hide();
+          $("#again").hide(); 
 
       }       
     } 
@@ -118,14 +129,27 @@ channel.bind('answered', function(data) {
         document.getElementById("modal-body").innerHTML = "Other dude answered correctly :(";
           $("#donate").show();
           $("#double").show();
+          $("#run").hide();
+          $("#again").hide(); 
+          $('#button1').attr("disabled", true);
+          $('#button2').attr("disabled", true);
+          $('#button3').attr("disabled", true);
+          $('#button4').attr("disabled", true);
       }
       else{
         document.getElementById("modal-body").innerHTML = "Other dude messed up :)";
           $("#donate").hide();
-          $("#double").hide(); 
+          $("#double").hide();
+          $("#run").show();
+          $("#again").show(); 
+          $('#button1').attr("disabled", true);
+          $('#button2').attr("disabled", true);
+          $('#button3').attr("disabled", true);
+          $('#button4').attr("disabled", true); 
       }
       //pop out modal for other player
-      document.getElementById("dummy-btn").click();    
+      document.getElementById("dummy-btn").click();  
+      document.getElementById("dummy-btn").disabled = true;  
     }
 
 });
@@ -134,15 +158,38 @@ $('#double').click(function(){
   //get next question, double loser bet, reset timer
 
   $.post('../games/start_another',{},function(){ });
-  document.getElementById("close").click(); 
-  
+   
+  $("#close").click(); 
 });
 
+var win;
 $('#donate').click(function(){
   //delete current game, give winner current bet from loser, and kick out both players to index page
-var params = { player: who  };
- $.post('../games/game_end',params,function(){ });
- window.location.href = "../games/";
+  win=false;
+  var params = { 
+    player: who,  
+    win: win
+  };
+  $.post('../games/game_end',params,function(){ });
+
+
+});
+
+$('#run').click(function(){
+  win=true;
+  var params = { 
+    player: who,
+    win: win  
+
+  };
+  $.post('../games/game_end',params,function(){ });
+
+});
+
+$('#again').click(function(){
+
+  $('#double').attr("disabled", false);
+  $('#donate').attr("disabled", false);
 
 });
 

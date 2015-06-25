@@ -17,6 +17,9 @@
         <li><%= link_to "Index page", games_path, method: :get %></li>
         <li><%= link_to "Enter a Room", room_path, method: :get %></li>
         <li><%= link_to 'Twitter', '/auth/twitter' %></li>
+        <% if admin? %>
+        <li><%= link_to 'Admin', '/admin' %></li>
+        <% end %>
       </ul>
 
       <div class="nav navbar-right" >
