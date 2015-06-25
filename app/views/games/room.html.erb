@@ -40,8 +40,8 @@
          <button type="button" id="again" class="btn btn-default" data-dismiss="modal">Again</button>
         <button type="button" id="run" class="btn btn-default" data-dismiss="modal">Run</button>
         <!-- disabled buttons until click -->
-        <button type="button" id="double" class="btn btn-default" data-dismiss="modal" disabled="">Double</button>
-        <button type="button" id="donate" class="btn btn-default" data-dismiss="modal" disabled="">Donate</button>
+        <button type="button" id="double" class="btn btn-default" data-dismiss="modal" >Double</button>
+        <button type="button" id="donate" class="btn btn-default" data-dismiss="modal" >Donate</button>
         
       </div>
     </div>
@@ -182,8 +182,10 @@ $('#run').click(function(){
 });
 
 $('#again').click(function(){
+
   $('#double').attr("disabled", false);
   $('#donate').attr("disabled", false);
+
 });
 
 </script>
