@@ -17,5 +17,21 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  helper_method :admin?
+
+  protected 
+
+  def authorizeAdmin
+    unless admin?
+      flash[:error] = "unauthorized access"
+      redirect_to home_session_path
+      false
+    end
+  end
+
+  def admin?
+    false
+  end
+
 end
 

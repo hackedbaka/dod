@@ -1,5 +1,7 @@
 class AdminController < ApplicationController
 
+  before_filter :authorizeAdmin
+
 	def index
         @questions = Question.all
     end
