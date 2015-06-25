@@ -90,7 +90,10 @@ $(function(){
           };    
           var url = '../games/answered';
           $.post(url,params,function(){ });
-
+          
+         $('#button2').attr("disabled", true);
+         $('#button3').attr("disabled", true);
+         $('#button4').attr("disabled", true);
     });
 
     $('#button2').click(function(){
@@ -100,6 +103,9 @@ $(function(){
           };    
           var url = '../games/answered';
           $.post(url,params,function(){ });
+          $('#button1').attr("disabled", true);
+         $('#button3').attr("disabled", true);
+         $('#button4').attr("disabled", true);
 
       
     });
@@ -111,6 +117,9 @@ $(function(){
           };    
           var url = '../games/answered';
           $.post(url,params,function(){ });
+          $('#button2').attr("disabled", true);
+         $('#button1').attr("disabled", true);
+         $('#button4').attr("disabled", true);
 
 
 
@@ -123,6 +132,9 @@ $(function(){
           };    
           var url = '../games/answered';
           $.post(url,params,function(){ });
+          $('#button2').attr("disabled", true);
+         $('#button3').attr("disabled", true);
+         $('#button1').attr("disabled", true);
 
       
      

@@ -93,7 +93,7 @@ channel.bind('start_another', function(data) {
 });
 
 channel.bind('kick_time', function(data) {
-   document.getElementById("index").click(); 
+   window.location.href = "../games/"; 
 });
     
 channel.bind('answered', function(data) {
@@ -142,7 +142,7 @@ $('#donate').click(function(){
   //delete current game, give winner current bet from loser, and kick out both players to index page
 var params = { player: who  };
  $.post('../games/game_end',params,function(){ });
- window.location.href = "../games/";
+
 
 });
 
