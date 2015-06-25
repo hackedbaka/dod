@@ -86,17 +86,16 @@ var channel = pusher.subscribe(channel_name);
 
 channel.bind('start_game', function(data) {
   // show question with answers and start timer
-   
-  
-      reset();
-      start();
-    
+  if(current_user == @game.p1)
+    start();
+  else
+    start();
+
 
 });
 
 channel.bind('start_another', function(data) {
-   location.reload(true);
-   
+   location.reload(true);  
 });
 
 channel.bind('kick_time', function(data) {
@@ -187,9 +186,11 @@ $('#run').click(function(){
 });
 
 $('#again').click(function(){
-
+if(!current_user)
+{
   $('#double').attr("disabled", false);
   $('#donate').attr("disabled", false);
+}
 
 });
 
