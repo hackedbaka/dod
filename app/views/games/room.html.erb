@@ -1,8 +1,8 @@
 <div class="room"> Welcome to room#<%=@game.room_id%>
 
-	<!-- <div>Time: <span id="time">00:00:00:000</span></div> -->
-  	<!-- <button id="start" >start</button>
-  	<button id="reset" >reset</button> -->
+	<div>Time: <span id="time">00:00:00:000</span></div>
+  	<button id="start" >start</button>
+  	<button id="reset" >reset</button>
     
 </div>
 
@@ -86,7 +86,12 @@ var channel = pusher.subscribe(channel_name);
 
 channel.bind('start_game', function(data) {
   // show question with answers and start timer
-   document.getElementById("start").click();
+   
+  
+      reset();
+      start();
+    
+
 });
 
 channel.bind('start_another', function(data) {

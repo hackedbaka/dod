@@ -77,31 +77,31 @@ class GamesController < ApplicationController
 		@game = Game.find_by(p1: current_user.id)
 		@game = Game.find_by(p2: current_user.id) if !@game
 		user1 = User.find(@game.p1)
-		user2 = User.find(@game.p2)
+		# user2 = User.find(@game.p2)
 		#initialize donated and earned in case it broke from user creation
 			if !user1.donated
 				user1.donated = 0.0
 			end
-			if !user2.donated
-				user2.donated = 0.0 
-			end
+			# if !user2.donated
+			# 	user2.donated = 0.0 
+			# end
 			if !user1.earned
 				user1.earned = 0.0 
 			end
-			if !user2.earned
-				user2.earned = 0.0 
-			end
+			# if !user2.earned
+			# 	user2.earned = 0.0 
+			# end
 		#transfer bet amount from game to players
 		if (params[:player] == '1' && !params[:win]) || (params[:player]=='2' && params[:win])
 			
 			user1.donated += @game.p1_bet
-			user2.earned += @game.p1_bet
+			# user2.earned += @game.p1_bet
 		else
-			user2.donated += @game.p2_bet
+			# user2.donated += @game.p2_bet
 			user1.earned += @game.p2_bet
 		end
 		user1.save
-		user2.save
+		# user2.save
 
 		Pusher[@game.room_id].trigger('kick_time', {});
 
