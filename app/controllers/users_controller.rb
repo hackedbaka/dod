@@ -7,6 +7,8 @@ class UsersController < ApplicationController
     user.location = auth_hash['info']['location']
     user.image_url = auth_hash['info']['image']
     user.url = auth_hash['info']['urls']['Twitter']
+    user.donated = 0
+    user.earned = 0
     user.save!
     user
   end
