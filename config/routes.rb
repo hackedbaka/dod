@@ -11,20 +11,12 @@ Rails.application.routes.draw do
   post "games/answered" => "games#answered"
   post "games/start_another" => "games#start_another"
   post "games/game_end" => "games#game_end"
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
 
-  # You can have the root of your site routed with "root"
-
-  # with these three OAuth routes
-  
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
   get 'signout', to: 'sessions#destroy', as: 'signout'
 
   root 'sessions#index',as: :home_session
-
-
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

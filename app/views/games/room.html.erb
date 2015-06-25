@@ -1,9 +1,11 @@
-<div class="room"> Welcome to room#<%=@game.room_id%>
+<div class="room"> Welcome to room#<%=@roomid%>
+
 	<div>Time: <span id="time">0</span></div>
   	<button id="start" onclick="start();">start</button>
   	<button id="stop" onclick="stop();">stop</button>
   	<button id="reset" onclick="reset();">reset</button>
 </div>
+
 
 <div class="question">
   <div class="<% if @game.p2 == nil %>hide-question<% end %>">
@@ -145,5 +147,4 @@ var params = { player: who  };
 });
 
 </script>
-
 

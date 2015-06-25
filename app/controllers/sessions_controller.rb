@@ -9,15 +9,22 @@ class SessionsController < ApplicationController
   end
 
   def create
+
     user = User.from_omniauth(env["omniauth.auth"])
     session[:user_id] = user.id
-    flash["alert-success"] = "You have been logged in"
+    flash[:success] = "Welcome, #{user.name}!"
+    redirect_to home_session_path
+  end
+
+  def auth_failure
     redirect_to home_session_path
   end
 
   def destroy
-    session[:user_id] = nil
-    flash["alert-success"] = "You have logged out"
+    if current_user
+      session.delete(:user_id)
+      flash[:success] = 'See you!'
+    end
     redirect_to home_session_path
   end
   

@@ -3,6 +3,7 @@ class GamesController < ApplicationController
 	end
 
 	def room
+
 		@game = Game.find_by(p1: current_user.id)
 		@game = Game.find_by(p2: current_user.id) if !@game
 
