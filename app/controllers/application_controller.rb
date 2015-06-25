@@ -30,7 +30,13 @@ class ApplicationController < ActionController::Base
   end
 
   def admin?
-    false
+    if current_user && current_user.email == "portugalkevin@gmail.com" 
+      return true 
+    elsif current_user && current_user.email == "jeffrey.wu23@gmail.com"
+      return true
+    else
+      return false
+    end
   end
 
 end
