@@ -1,5 +1,7 @@
 <div class="container">
-
+	<% if flash[:alert]%>
+	<div class="alert"><%=flash[:alert]%></div>
+	<%end%>
 	<div class="welcome">
 		Welcome to Double or Donate	
 	</div>

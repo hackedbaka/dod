@@ -104,6 +104,8 @@ class GamesController < ApplicationController
 
 		Pusher[@game.room_id].trigger('kick_time', {});
 
+		flash[:alert] = "Someone wanted to quit"
+
 		@game.delete
 		render nothing: true, status: 200
 	end
