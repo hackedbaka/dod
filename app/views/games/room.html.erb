@@ -39,7 +39,7 @@
       <div class="modal-footer">
          <button type="button" id="again" class="btn btn-default" data-dismiss="modal">Again</button>
         <button type="button" id="run" class="btn btn-default" data-dismiss="modal">Run</button>
-        <!-- disabled buttons until click -->
+        
         <button type="button" id="double" class="btn btn-default" data-dismiss="modal" >Double</button>
         <button type="button" id="donate" class="btn btn-default" data-dismiss="modal" >Donate</button>
         
@@ -75,6 +75,7 @@
 <script>
 
 
+var win;
 var who = <% if @game.p1 == current_user.id.to_s %>1<% else %>2<% end %>;
 var player1  = <%= @game.p1 %>;
 var player2  = <%= @game.p2 || 'null' %>;
@@ -86,17 +87,12 @@ var channel = pusher.subscribe(channel_name);
 
 channel.bind('start_game', function(data) {
   // show question with answers and start timer
-   
-  
-      reset();
-      start();
-    
+
 
 });
 
 channel.bind('start_another', function(data) {
-   location.reload(true);
-   
+   location.reload(true);  
 });
 
 channel.bind('kick_time', function(data) {
@@ -131,10 +127,7 @@ channel.bind('answered', function(data) {
           $("#double").show();
           $("#run").hide();
           $("#again").hide(); 
-          $('#button1').attr("disabled", true);
-          $('#button2').attr("disabled", true);
-          $('#button3').attr("disabled", true);
-          $('#button4').attr("disabled", true);
+          
       }
       else{
         document.getElementById("modal-body").innerHTML = "Other dude messed up :)";
@@ -142,10 +135,7 @@ channel.bind('answered', function(data) {
           $("#double").hide();
           $("#run").show();
           $("#again").show(); 
-          $('#button1').attr("disabled", true);
-          $('#button2').attr("disabled", true);
-          $('#button3').attr("disabled", true);
-          $('#button4').attr("disabled", true); 
+          
       }
       //pop out modal for other player
       document.getElementById("dummy-btn").click();  
@@ -162,7 +152,6 @@ $('#double').click(function(){
   $("#close").click(); 
 });
 
-var win;
 $('#donate').click(function(){
   //delete current game, give winner current bet from loser, and kick out both players to index page
   win=false;
@@ -187,9 +176,7 @@ $('#run').click(function(){
 });
 
 $('#again').click(function(){
-
-  $('#double').attr("disabled", false);
-  $('#donate').attr("disabled", false);
+  
 
 });
 

@@ -124,9 +124,6 @@ $(function(){
   
     });
 
-    $('#start').click(function(){start();});
-    $('#reset').click(function(){reset();});
-
 
 });
 
