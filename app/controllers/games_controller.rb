@@ -29,7 +29,7 @@ class GamesController < ApplicationController
 
 	        end
 	    	@game.save
-
+	    	
 
 	    end
 		
