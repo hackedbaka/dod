@@ -1,8 +1,8 @@
 <div class="room"> Welcome to room#<%=@game.room_id%>
 
 	<div>Time: <span id="time">00:00:00:000</span></div>
-  	<button id="start" >start</button>
-  	<button id="reset" >reset</button>
+  	<!-- <button id="start" >start</button>
+  	<button id="reset" >reset</button> -->
     
 </div>
 
@@ -95,7 +95,7 @@ channel.bind('start_another', function(data) {
 
 channel.bind('kick_time', function(data) {
    location.href = "https://doubleordonate.herokuapp.com/"; 
-   // location.href = "/http://localhost:3000/"; 
+   // location.href = "http://localhost:3000/"; 
 });
     
 channel.bind('answered', function(data) {
