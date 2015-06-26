@@ -1,8 +1,8 @@
 <div class="room"> Welcome to room#<%=@game.room_id%>
 
 	<div>Time: <span id="time">00:00:00:000</span></div>
-  	<button id="start" >start</button>
-  	<button id="reset" >reset</button>
+  	<!-- <button id="start" >start</button>
+  	<button id="reset" >reset</button> -->
     
 </div>
 
@@ -37,11 +37,15 @@
       </div>
 
       <div class="modal-footer">
+<<<<<<< HEAD
          <button type="button" id="again" class="btn btn-default" data-dismiss="modal">Again</button>
         <button type="button" id="run" class="btn btn-default" data-dismiss="modal">Run</button>
         
+=======
+         
+>>>>>>> Hotfix
         <button type="button" id="double" class="btn btn-default" data-dismiss="modal" >Double</button>
-        <button type="button" id="donate" class="btn btn-default" data-dismiss="modal" >Donate</button>
+        <button type="button" id="donate" class="btn btn-default" data-dismiss="modal" >Donate: <%if "#{@game.p1}" == "#{current_user.id}"%><%=@game.p1_bet%><%else%><%=@game.p2_bet%><%end%></button>
         
       </div>
     </div>
@@ -50,21 +54,25 @@
 </div>
 <div class="players">
   <div class="p1">
-  <%if current_user.id == @game.p1%>
-    <label><%=current_user.name%></label>
+  <%if "#{@game.p1}" == "#{current_user.id}"%>
+    <%=current_user.name%>
   <%else%>
     player 1
   <%end%>  
+  <br>
   p1_bet: <div id="p1_bet"><%=@game.p1_bet%></div>
   
   
   </div>
   <div class="p2">
-  <%if current_user.id == @game.p2%>
-    <label><%=current_user.name%></label>
+  <%if !@game.p2%>
+    Waiting on Player 2
+  <%elsif "#{@game.p2}" == "#{current_user.id}"%>
+    <%=current_user.name%>
   <%else%>
-    player 2
+    Player 2
   <%end%> 
+  <br>
   p2_bet: <div id="p2_bet"><%=@game.p2_bet%></div>
   
   </div>
@@ -74,8 +82,6 @@
 
 <script>
 
-
-var win;
 var who = <% if @game.p1 == current_user.id.to_s %>1<% else %>2<% end %>;
 var player1  = <%= @game.p1 %>;
 var player2  = <%= @game.p2 || 'null' %>;
@@ -88,6 +94,8 @@ var channel = pusher.subscribe(channel_name);
 channel.bind('start_game', function(data) {
   // show question with answers and start timer
 
+  start();
+
 
 });
 
@@ -96,89 +104,102 @@ channel.bind('start_another', function(data) {
 });
 
 channel.bind('kick_time', function(data) {
-   location.href = "../games/"; 
+   // location.href = "https://doubleordonate.herokuapp.com/"; 
+   location.href = "../games"; 
 });
     
 channel.bind('answered', function(data) {
     
-    if (data.player == who) {
+    if (data.player == who) 
+    {
       // console.log("answering player is correct: " + data.correct);
       if(data.correct){
-        document.getElementById("modal-body").innerHTML = "Nice! You are correct";   
-          $("#donate").hide();
-          $("#double").hide();    
-          $("#run").show();    
-          $("#again").show();    
+        document.getElementById("modal-body").innerHTML = "Nice! You are correct";           
       }
-      else{
-         document.getElementById("modal-body").innerHTML ="Bummer, you got it wrong";  
-          $("#donate").show();
-          $("#double").show();
-          $("#run").hide();
-          $("#again").hide(); 
 
+      else
+      {
+         document.getElementById("modal-body").innerHTML ="Bummer, you got it wrong";  
       }       
     } 
     else {
       // console.log("other player is correct: " + data.correct);
-      if(data.correct){
-        document.getElementById("modal-body").innerHTML = "Other dude answered correctly :(";
-          $("#donate").show();
-          $("#double").show();
-          $("#run").hide();
-          $("#again").hide(); 
-          
+
+      if(data.correct)
+      {
+        document.getElementById("modal-body").innerHTML = "Other dude answered correctly :(";     
       }
-      else{
+
+      else
+      {
         document.getElementById("modal-body").innerHTML = "Other dude messed up :)";
-          $("#donate").hide();
-          $("#double").hide();
-          $("#run").show();
-          $("#again").show(); 
-          
+
       }
       //pop out modal for other player
       document.getElementById("dummy-btn").click();  
-      document.getElementById("dummy-btn").disabled = true;  
     }
 
 });
 
-$('#double').click(function(){
-  //get next question, double loser bet, reset timer
+$(function() {
 
-  $.post('../games/start_another',{},function(){ });
-   
-  $("#close").click(); 
+    $('#button1').click(function(){
+
+          var params = {
+            player: who,
+            choice: this.value
+          };
+          var url = '../games/answered';
+          $.post(url,params,function(){ });
+
+    });
+
+    $('#button2').click(function(){
+          var params = {
+          player: who,
+          choice: this.value
+          };
+          var url = '../games/answered';
+          $.post(url,params,function(){ });
+
+    });
+
+    $('#button3').click(function(){
+          var params = {
+          player: who,
+          choice: this.value
+          };
+          var url = '../games/answered';
+          $.post(url,params,function(){ });
+
+    });
+
+    $('#button4').click(function(){
+          var params = {
+            player: who,
+            choice: this.value
+          };
+          var url = '../games/answered';
+          $.post(url,params,function(){ });
+
+
+    });
+
+
+    $('#double').click(function(){
+      //get next question, double loser bet, reset timer     
+      $.post('../games/start_another',{},function(){ });
+
+    });
+
+    $('#donate').click(function(){
+    //delete current game, give winner current bet from loser, and kick out both players to index page
+      $.post('../games/game_end',{},function(){ });
+    });
+
+
 });
 
-$('#donate').click(function(){
-  //delete current game, give winner current bet from loser, and kick out both players to index page
-  win=false;
-  var params = { 
-    player: who,  
-    win: win
-  };
-  $.post('../games/game_end',params,function(){ });
-
-
-});
-
-$('#run').click(function(){
-  win=true;
-  var params = { 
-    player: who,
-    win: win  
-
-  };
-  $.post('../games/game_end',params,function(){ });
-
-});
-
-$('#again').click(function(){
-  
-
-});
 
 </script>
 
