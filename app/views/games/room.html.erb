@@ -61,9 +61,9 @@
   </div>
   <div class="p2">
   <%if current_user.id == @game.p2%>
-    <label><%=current_user.name%></label>
+    <h1><%=current_user.name%></h1>
   <%else%>
-    player 2
+    Waiting on Player 2
   <%end%> 
   p2_bet: <div id="p2_bet"><%=@game.p2_bet%></div>
   
@@ -74,8 +74,6 @@
 
 <script>
 
-
-var win;
 var who = <% if @game.p1 == current_user.id.to_s %>1<% else %>2<% end %>;
 var player1  = <%= @game.p1 %>;
 var player2  = <%= @game.p2 || 'null' %>;
@@ -96,7 +94,7 @@ channel.bind('start_another', function(data) {
 });
 
 channel.bind('kick_time', function(data) {
-   location.href = "../games/"; 
+   location.href = "../games"; 
 });
     
 channel.bind('answered', function(data) {
@@ -139,46 +137,12 @@ channel.bind('answered', function(data) {
       }
       //pop out modal for other player
       document.getElementById("dummy-btn").click();  
-      document.getElementById("dummy-btn").disabled = true;  
+       
     }
 
 });
 
-$('#double').click(function(){
-  //get next question, double loser bet, reset timer
 
-  $.post('../games/start_another',{},function(){ });
-   
-  $("#close").click(); 
-});
-
-$('#donate').click(function(){
-  //delete current game, give winner current bet from loser, and kick out both players to index page
-  win=false;
-  var params = { 
-    player: who,  
-    win: win
-  };
-  $.post('../games/game_end',params,function(){ });
-
-
-});
-
-$('#run').click(function(){
-  win=true;
-  var params = { 
-    player: who,
-    win: win  
-
-  };
-  $.post('../games/game_end',params,function(){ });
-
-});
-
-$('#again').click(function(){
-  
-
-});
 
 </script>
 

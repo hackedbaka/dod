@@ -3,20 +3,18 @@ class GamesController < ApplicationController
 	end
 
 	def room
-
+		#checks to see if the current user is inside a room
 		@game = Game.find_by(p1: current_user.id)
 		@game = Game.find_by(p2: current_user.id) if !@game
 
 
 		if !@game then
 			@game = Game.last
-			# @questions = Question.all
-			# @question = @questions[rand(0..@questions.length-1)]
-
+			
 	        if @game && !@game.p2
 	        	##if p1 is empty, assign the player as player 1
 	            @game.p2 = current_user.id
-				Pusher[@game.room_id].trigger('start_game', {p2: @game.p2});
+				Pusher[@game.room_id].trigger('start_game', {});
 	        else
 	            ##initialize game       	
 	        	@game = Game.create
@@ -77,20 +75,23 @@ class GamesController < ApplicationController
 		@game = Game.find_by(p1: current_user.id)
 		@game = Game.find_by(p2: current_user.id) if !@game
 		user1 = User.find(@game.p1)
-		# user2 = User.find(@game.p2)
-		#initialize donated and earned in case it broke from user creation
 			if !user1.donated
 				user1.donated = 0.0
 			end
-			# if !user2.donated
-			# 	user2.donated = 0.0 
-			# end
 			if !user1.earned
 				user1.earned = 0.0 
 			end
-			# if !user2.earned
-			# 	user2.earned = 0.0 
-			# end
+		#required to make single testing work
+		if @game.p2
+			user2 = User.find(@game.p2)
+			if !user2.donated
+				user2.donated = 0.0 
+			end
+			if !user2.earned
+				user2.earned = 0.0 
+			end
+		end
+		#initialize donated and earned in case it broke from user creation
 		#transfer bet amount from game to players
 		if (params[:player] == '1' && !params[:win]) || (params[:player]=='2' && params[:win])
 			

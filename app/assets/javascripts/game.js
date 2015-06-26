@@ -124,6 +124,45 @@ $(function(){
   
     });
 
+    $('#double').click(function(){
+      //get next question, double loser bet, reset timer
+      var params = { 
+        player: who  
+        
+      };
+      $.post('../games/start_another',params,function(){ });
+
+    });
+
+    $('#donate').click(function(){
+  //delete current game, give winner current bet from loser, and kick out both players to index page
+      var win=false;
+      var params = { 
+        player: who,  
+        win: win
+      };
+      $.post('../games/game_end',params,function(){ });
+    });
+
+    $('#run').click(function(){
+      var win=true;
+      var params = { 
+        player: who,
+        win: win  
+
+      };
+      $.post('../games/game_end',params,function(){ });
+
+    });
+
+    $('#again').click(function(){
+      var params = { 
+        player: who  
+        
+      };
+      $.post('../games/start_another',params,function(){ });
+    });
+
 
 });
 
