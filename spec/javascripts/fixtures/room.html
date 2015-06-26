@@ -1,0 +1,52 @@
+<div class="room">Welcome to room#fun
+	<div>Time: <span id="time">00:00:00:000</span></div>
+  	<!-- <button id="start" >start</button>
+  	<button id="reset" >reset</button> -->   
+</div>
+<div id="test">Test</div>
+<div class="question">
+  <div class="hide-question">
+	Question: number
+  </div>
+</div>
+<div id="answer" class="answer">
+	Answers:
+  <!-- Button trigger modal -->
+  <div class="abutton">
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="button1" value="1">1</button>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="button2" value="2">2</button>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="button3" value="3">3</button>
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="button4" value="4">4</button>
+  <button type="button" data-toggle="modal" data-target="#myModal" id="dummy-btn" ></button>
+</div>  
+
+<div id="correct" class="correct">1</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" data-backdrop="static" data-keyboard="false"tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Result</h4>     
+      </div>
+      <div class="modal-body" id="modal-body">
+      </div>
+      <div class="modal-footer">         
+        <button type="button" id="double" class="btn btn-default" data-dismiss="modal" >Double</button>
+        <button type="button" id="donate" class="btn btn-default" data-dismiss="modal" >Donate: 0.01</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="players">
+  <div class="p1">
+  Player 1 
+  <br>
+  p1_bet: <div id="p1_bet">1.28</div> 
+  </div>
+  <div class="p2">
+  Player 2 
+  <br>
+  p2_bet: <div id="p2_bet">0.32</div>
+  </div> 
+</div>
