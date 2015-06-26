@@ -37,7 +37,13 @@
       </div>
 
       <div class="modal-footer">
+<<<<<<< HEAD
+         <button type="button" id="again" class="btn btn-default" data-dismiss="modal">Again</button>
+        <button type="button" id="run" class="btn btn-default" data-dismiss="modal">Run</button>
+        
+=======
          
+>>>>>>> Hotfix
         <button type="button" id="double" class="btn btn-default" data-dismiss="modal" >Double</button>
         <button type="button" id="donate" class="btn btn-default" data-dismiss="modal" >Donate: <%if "#{@game.p1}" == "#{current_user.id}"%><%=@game.p1_bet%><%else%><%=@game.p2_bet%><%end%></button>
         
@@ -75,6 +81,7 @@
 
 
 <script>
+
 var who = <% if @game.p1 == current_user.id.to_s %>1<% else %>2<% end %>;
 var player1  = <%= @game.p1 %>;
 var player2  = <%= @game.p2 || 'null' %>;
@@ -86,7 +93,9 @@ var channel = pusher.subscribe(channel_name);
 
 channel.bind('start_game', function(data) {
   // show question with answers and start timer
+
   start();
+
 
 });
 
@@ -115,6 +124,7 @@ channel.bind('answered', function(data) {
     } 
     else {
       // console.log("other player is correct: " + data.correct);
+
       if(data.correct)
       {
         document.getElementById("modal-body").innerHTML = "Other dude answered correctly :(";     
@@ -122,7 +132,8 @@ channel.bind('answered', function(data) {
 
       else
       {
-        document.getElementById("modal-body").innerHTML = "Other dude messed up :)";       
+        document.getElementById("modal-body").innerHTML = "Other dude messed up :)";
+
       }
       //pop out modal for other player
       document.getElementById("dummy-btn").click();  
@@ -137,27 +148,27 @@ $(function() {
           var params = {
             player: who,
             choice: this.value
-          };    
+          };
           var url = '../games/answered';
           $.post(url,params,function(){ });
-      
+
     });
 
     $('#button2').click(function(){
           var params = {
           player: who,
           choice: this.value
-          };    
+          };
           var url = '../games/answered';
           $.post(url,params,function(){ });
-  
+
     });
 
     $('#button3').click(function(){
           var params = {
           player: who,
           choice: this.value
-          };    
+          };
           var url = '../games/answered';
           $.post(url,params,function(){ });
 
@@ -167,12 +178,13 @@ $(function() {
           var params = {
             player: who,
             choice: this.value
-          };    
+          };
           var url = '../games/answered';
           $.post(url,params,function(){ });
-          
-  
+
+
     });
+
 
     $('#double').click(function(){
       //get next question, double loser bet, reset timer     
@@ -187,7 +199,6 @@ $(function() {
 
 
 });
-
 
 
 </script>
