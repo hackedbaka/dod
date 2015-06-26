@@ -88,8 +88,8 @@ class GamesController < ApplicationController
 			user1.earned += @game.p2_bet
 			user1.save
 		
-		else
-			if @game.p2
+		
+			
 				user2 = User.find(@game.p2)
 				if !user2.donated
 					user2.donated = 0.0 
@@ -100,7 +100,7 @@ class GamesController < ApplicationController
 				user2.earned += @game.p1_bet
 				user2.donated += @game.p2_bet
 				user2.save
-			end
+			
 
 		Pusher[@game.room_id].trigger('kick_time', {});
 
