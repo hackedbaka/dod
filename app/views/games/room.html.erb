@@ -75,6 +75,7 @@
 <script>
 
 
+var win;
 var who = <% if @game.p1 == current_user.id.to_s %>1<% else %>2<% end %>;
 var player1  = <%= @game.p1 %>;
 var player2  = <%= @game.p2 || 'null' %>;
@@ -86,10 +87,6 @@ var channel = pusher.subscribe(channel_name);
 
 channel.bind('start_game', function(data) {
   // show question with answers and start timer
-  if(current_user == @game.p1)
-    start();
-  else
-    start();
 
 
 });
@@ -161,7 +158,6 @@ $('#double').click(function(){
   $("#close").click(); 
 });
 
-var win;
 $('#donate').click(function(){
   //delete current game, give winner current bet from loser, and kick out both players to index page
   win=false;
@@ -186,11 +182,7 @@ $('#run').click(function(){
 });
 
 $('#again').click(function(){
-if(!current_user)
-{
-  $('#double').attr("disabled", false);
-  $('#donate').attr("disabled", false);
-}
+  
 
 });
 
