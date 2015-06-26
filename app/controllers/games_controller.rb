@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+	skip_before_filter  :verify_authenticity_token
 	def index
 	end
 
@@ -68,46 +69,43 @@ class GamesController < ApplicationController
 		@game.question = @game.questions[rand(0..@game.questions.length-1)]
 
 		Pusher[@game.room_id].trigger('start_another', {});
+		render nothing: true, status: 200
 	end
 
 	def game_end
 		# binding.pry
 		@game = Game.find_by(p1: current_user.id)
 		@game = Game.find_by(p2: current_user.id) if !@game
-		user1 = User.find(@game.p1)
+		
+			user1 = User.find(@game.p1)
 			if !user1.donated
 				user1.donated = 0.0
 			end
 			if !user1.earned
 				user1.earned = 0.0 
 			end
-		#required to make single testing work
-		if @game.p2
-			user2 = User.find(@game.p2)
-			if !user2.donated
-				user2.donated = 0.0 
-			end
-			if !user2.earned
-				user2.earned = 0.0 
-			end
-		end
-		#initialize donated and earned in case it broke from user creation
-		#transfer bet amount from game to players
-		if (params[:player] == '1' && !params[:win]) || (params[:player]=='2' && params[:win])
-			
 			user1.donated += @game.p1_bet
-			# user2.earned += @game.p1_bet
-		else
-			# user2.donated += @game.p2_bet
 			user1.earned += @game.p2_bet
-		end
-		user1.save
-		# user2.save
+			user1.save
+		
+		else
+			if @game.p2
+				user2 = User.find(@game.p2)
+				if !user2.donated
+					user2.donated = 0.0 
+				end
+				if !user2.earned
+					user2.earned = 0.0 
+				end
+				user2.earned += @game.p1_bet
+				user2.donated += @game.p2_bet
+				user2.save
+			end
 
 		Pusher[@game.room_id].trigger('kick_time', {});
 
 		@game.delete
-
+		render nothing: true, status: 200
 	end
 
 end

@@ -37,11 +37,9 @@
       </div>
 
       <div class="modal-footer">
-         <button type="button" id="again" class="btn btn-default" data-dismiss="modal">Again</button>
-        <button type="button" id="run" class="btn btn-default" data-dismiss="modal">Run</button>
-        
+         
         <button type="button" id="double" class="btn btn-default" data-dismiss="modal" >Double</button>
-        <button type="button" id="donate" class="btn btn-default" data-dismiss="modal" >Donate</button>
+        <button type="button" id="donate" class="btn btn-default" data-dismiss="modal" >Donate: <%if current_user.id==@game.p1%><%=@game.p1_bet%><%else%><%=@game.p2_bet%><%end%></button>
         
       </div>
     </div>
@@ -73,7 +71,6 @@
 
 
 <script>
-
 var who = <% if @game.p1 == current_user.id.to_s %>1<% else %>2<% end %>;
 var player1  = <%= @game.p1 %>;
 var player2  = <%= @game.p2 || 'null' %>;
@@ -85,7 +82,7 @@ var channel = pusher.subscribe(channel_name);
 
 channel.bind('start_game', function(data) {
   // show question with answers and start timer
-
+  // start();
 
 });
 
@@ -94,52 +91,96 @@ channel.bind('start_another', function(data) {
 });
 
 channel.bind('kick_time', function(data) {
-   location.href = "https://doubleordonate.herokuapp.com/"; 
-   // location.href = "http://localhost:3000/"; 
+   // location.href = "https://doubleordonate.herokuapp.com/"; 
+   location.href = "../games"; 
 });
     
 channel.bind('answered', function(data) {
     
-    if (data.player == who) {
+    if (data.player == who) 
+    {
       // console.log("answering player is correct: " + data.correct);
       if(data.correct){
-        document.getElementById("modal-body").innerHTML = "Nice! You are correct";   
-          $("#donate").hide();
-          $("#double").hide();    
-          $("#run").show();    
-          $("#again").show();    
+        document.getElementById("modal-body").innerHTML = "Nice! You are correct";           
       }
-      else{
-         document.getElementById("modal-body").innerHTML ="Bummer, you got it wrong";  
-          $("#donate").show();
-          $("#double").show();
-          $("#run").hide();
-          $("#again").hide(); 
 
+      else
+      {
+         document.getElementById("modal-body").innerHTML ="Bummer, you got it wrong";  
       }       
     } 
     else {
       // console.log("other player is correct: " + data.correct);
-      if(data.correct){
-        document.getElementById("modal-body").innerHTML = "Other dude answered correctly :(";
-          $("#donate").show();
-          $("#double").show();
-          $("#run").hide();
-          $("#again").hide(); 
-          
+      if(data.correct)
+      {
+        document.getElementById("modal-body").innerHTML = "Other dude answered correctly :(";     
       }
-      else{
-        document.getElementById("modal-body").innerHTML = "Other dude messed up :)";
-          $("#donate").hide();
-          $("#double").hide();
-          $("#run").show();
-          $("#again").show(); 
-          
+
+      else
+      {
+        document.getElementById("modal-body").innerHTML = "Other dude messed up :)";       
       }
       //pop out modal for other player
       document.getElementById("dummy-btn").click();  
-       
     }
+
+});
+
+$(function() {
+
+    $('#button1').click(function(){
+
+          var params = {
+            player: who,
+            choice: this.value
+          };    
+          var url = '../games/answered';
+          $.post(url,params,function(){ });
+      
+    });
+
+    $('#button2').click(function(){
+          var params = {
+          player: who,
+          choice: this.value
+          };    
+          var url = '../games/answered';
+          $.post(url,params,function(){ });
+  
+    });
+
+    $('#button3').click(function(){
+          var params = {
+          player: who,
+          choice: this.value
+          };    
+          var url = '../games/answered';
+          $.post(url,params,function(){ });
+
+    });
+
+    $('#button4').click(function(){
+          var params = {
+            player: who,
+            choice: this.value
+          };    
+          var url = '../games/answered';
+          $.post(url,params,function(){ });
+          
+  
+    });
+
+    $('#double').click(function(){
+      //get next question, double loser bet, reset timer     
+      $.post('../games/start_another',{},function(){ });
+
+    });
+
+    $('#donate').click(function(){
+    //delete current game, give winner current bet from loser, and kick out both players to index page
+      $.post('../games/game_end',{},function(){ });
+    });
+
 
 });
 
