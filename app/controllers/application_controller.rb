@@ -34,6 +34,8 @@ class ApplicationController < ActionController::Base
       return true 
     elsif current_user && current_user.email == "jeffrey.wu23@gmail.com"
       return true
+    elsif current_user && current_user.email == "jamelg310@gmail.com"
+      return true
     else
       return false
     end
