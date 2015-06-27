@@ -49,7 +49,22 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+<<<<<<< HEAD
   gem 'teaspoon-jasmine'
+=======
+
+  gem 'rspec-rails', '~> 3.0.0'
+
+  gem 'shoulda-matchers', require: false
+
+  gem 'capybara'
+
+  gem 'factory_girl_rails'
+
+  #ADD IN simplecov gem
+  gem 'simplecov', :require => false
+
+>>>>>>> 1f36a50c3f6e72ade952c285482526f785e1ed4d
 end
 
 gem 'pusher'
