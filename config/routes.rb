@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   get 'auth/failure', to: redirect('/')
   get 'signout', to: 'sessions#destroy', as: 'signout'
 
-  root 'sessions#index',as: :home_session
+  root 'games#index',as: :home_session
 
   get 'charities' => "charities#index"
 
