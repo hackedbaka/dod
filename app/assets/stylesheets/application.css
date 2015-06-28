@@ -5,7 +5,7 @@
 
 
 .innersplash{
-    background: url("liberty.jpeg")no-repeat center center fixed;
+    background: url("/assets/liberty.jpeg")no-repeat center center fixed;
 }
 
 /*header of the page*/
@@ -20,7 +20,7 @@
 /*conflict one*/
 body{
     /*background-color: #a7a7a7;*/
-    background-image: url("smartback.png");
+    background-image: url("/assets/smartback.png");
     background-repeat: repeat-x;
 }
 
