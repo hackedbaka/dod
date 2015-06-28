@@ -1,14 +1,16 @@
-<div class="room"> Welcome to room#<%=@game.room_id%>
+<h2 class="vegas">Room:<%=@game.id%></h2>
 
-	<div>Time: <span id="time">00:00:00:000</span></div>
+<div class="room"> DOUBLE OR DONATE</div>
+
+	<!--<div>Time: <span id="time">00:00:00:000</span></div>-->
   	<!-- <button id="start" >start</button>
   	<button id="reset" >reset</button> -->
-    
-</div>
+
+
 
 
 <div class="question">
-  <div class="<% if @game.p2 == nil %>hide-question<% end %>">
+  <div>
 	Question: <%=@game.question.text%>
   </div>
 </div>
@@ -17,14 +19,12 @@
 
   <!-- Button trigger modal -->
   <div class="<% if @game.p2 == nil %>hide-abutton<%else%>abutton<% end %>">
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="button1" value="1"><%=@game.question.answer_1%></button>
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="button2" value="2"><%=@game.question.answer_2%></button>
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="button3" value="3"><%=@game.question.answer_3%></button>
-  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="button4" value="4"><%=@game.question.answer_4%></button>
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal" id="button1" value="1">A<br><%=@game.question.answer_1%></button>
+    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal" id="button2" value="2">B<br><%=@game.question.answer_2%></button>
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" id="button3" value="3">C<br><%=@game.question.answer_3%></button>
+  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal" id="button4" value="4">D<br><%=@game.question.answer_4%></button>
   <button type="button" data-toggle="modal" data-target="#myModal" id="dummy-btn" ></button>
-</div>  
-
-<div id="correct" class="correct"><%=@game.question.correct_answer%></div>
+</div>
 <!-- Modal -->
 <div class="modal fade" id="myModal" data-backdrop="static" data-keyboard="false"tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -37,13 +37,7 @@
       </div>
 
       <div class="modal-footer">
-<<<<<<< HEAD
-         <button type="button" id="again" class="btn btn-default" data-dismiss="modal">Again</button>
-        <button type="button" id="run" class="btn btn-default" data-dismiss="modal">Run</button>
-        
-=======
-         
->>>>>>> Hotfix
+
         <button type="button" id="double" class="btn btn-default" data-dismiss="modal" >Double</button>
         <button type="button" id="donate" class="btn btn-default" data-dismiss="modal" >Donate: <%if "#{@game.p1}" == "#{current_user.id}"%><%=@game.p1_bet%><%else%><%=@game.p2_bet%><%end%></button>
         
@@ -52,15 +46,16 @@
   </div>
 </div>
 </div>
+<!--player one and player 2-->
 <div class="players">
   <div class="p1">
   <%if "#{@game.p1}" == "#{current_user.id}"%>
     <%=current_user.name%>
   <%else%>
-    player 1
+    Player 1
   <%end%>  
   <br>
-  p1_bet: <div id="p1_bet"><%=@game.p1_bet%></div>
+    Bet: <div id="p1_bet"><%=@game.p1_bet%></div>
   
   
   </div>
@@ -71,9 +66,9 @@
     <%=current_user.name%>
   <%else%>
     Player 2
-  <%end%> 
+  <%end%>
   <br>
-  p2_bet: <div id="p2_bet"><%=@game.p2_bet%></div>
+    Bet: <div id="p2_bet"><%=@game.p2_bet%></div>
   
   </div>
   
@@ -105,7 +100,7 @@ channel.bind('start_another', function(data) {
 
 channel.bind('kick_time', function(data) {
    // location.href = "https://doubleordonate.herokuapp.com/"; 
-   location.href = "../games"; 
+   location.href = "../charities";
 });
     
 channel.bind('answered', function(data) {

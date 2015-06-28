@@ -28,37 +28,54 @@
 
 
 .room{
-border: 1px solid black;
-text-align:center;
-	
+	border: 4px solid #2E2F30;
+	text-align:center;
+  	color:#B05700;
+    background: black;
+  	font-size: 50px;
+}
+
+.vegas{
+  text-align: center;
+  color:red;
+  font-size: 50px;
+  padding:10px;
 }
 
 .question{
-	border: 1px solid black;
+	border: 3px solid #2E2F30;
 	text-align:center;
 	font-size: 30px;
 	height: 200px;
+  	font-family: Monaco, "Andale Mono";
+  	color:white;
+  	background: #EFA63E;
+    padding-top: 10px;
 }
 
 .answer{
-	border: 1px solid black;
+	border: 2px solid #2E2F30;
 	text-align:center;
 	font-size: 30px;
 	height:200px;
+    background: #ffffff;
 }
 
 .players{
-	margin: auto;
+	margin: 0 auto;
 	text-align: center;
+    color:white;
+
 }
 
 .players .p1, .p2{
 	display: inline-block;
-	border: 1px solid black;
+	border: 2px solid black;
 	text-align:center;
 	font-size: 30px;
-	height: 100px;
+	height: 130px;
 	width: 300px;
+  background:#089DE3;
 }
 
 #dummy-btn{

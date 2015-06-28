@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+
+
   namespace :api do
       resources :questions, except: [:new, :edit]
   end
@@ -17,6 +19,8 @@ Rails.application.routes.draw do
   get 'signout', to: 'sessions#destroy', as: 'signout'
 
   root 'sessions#index',as: :home_session
+
+  get 'charities' => "charities#index"
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

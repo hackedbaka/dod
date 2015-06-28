@@ -3,11 +3,27 @@
 *=require_self
 */
 
+
+.innersplash{
+    background: url("liberty.jpeg")no-repeat center center fixed;
+}
+
+/*header of the page*/
+.maint{
+    text-align: center;
+    font-size: 55px;
+    margin-bottom:80px;
+    color:#ffffff;
+    background:black;
+}
+
 /*conflict one*/
 body{
     /*background-color: #a7a7a7;*/
     background-image: url("smartback.png");
+    background-repeat: repeat-x;
 }
+
 
 /** controls the navbar size with div  application.html.erb:*/
 #control-nav{
@@ -15,21 +31,41 @@ body{
     margin:0 auto;
     background-color: #9F4F00;
     box-shadow: 2px 1px 2px 1px #2E2F30;
+
 }
 
 .word-c{
     color:white;
-
     float: right;
 }
+
+.logos{
+    border-radius: 80%;
+}
+
+/* controlls container with the 3 circles*/
+.marketing{
+    padding-top: 70px;
+    padding-right: 220px;
+
+}
+
+/*signin on the navbar*/
+#signin{
+  padding: 10px 10px 0 0;
+  color: #5cb85c;
+  font-family: monospace;
+}
+
 
 /**controls images application.html.erb: */
 .centro {
     width: 100%;
 }
 
-
-
+.footer{
+    text-align: center;
+}
 /*application.html.erb: controls the inner white-background*/
 .innersplash{
     background-color: white;
@@ -38,6 +74,7 @@ body{
     padding: 100px;
     width: 1100px;
     margin: 0 auto;
-    box-shadow: 5px 1px 5px 1px #2E2F30;
+    box-shadow: 3px 1px 3px 1px #2E2F30;
 }
+
 
