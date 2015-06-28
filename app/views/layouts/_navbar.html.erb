@@ -1,40 +1,58 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      
-    </div>
+<div class="top-head">
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li><%= link_to "Index page", games_path, method: :get %></li>
-        <li><%= link_to "Enter a Room", room_path, method: :get %></li>
-        <li><%= link_to 'Twitter', '/auth/twitter' %></li>
-        <% if admin? %>
-        <li><%= link_to 'Admin', '/admin' %></li>
-        <% end %>
-      </ul>
 
-      <div class="nav navbar-right" >
-      <ul class="nav navbar-nav">
-        <li>
-          <% if current_user  %>
-            Signed in as <%=current_user.name%>
-          <% else %>
-            Not signed in
-          <%end%>
-        </li>
+  <nav role="navigation" id="control-nav">
+    <div>
+      <%= image_tag ("Header.png"), class: "centro" %>
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
 
-       </ul>
-               
       </div>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><%= link_to "Home", games_path, method: :get, class: "word-c" %></li>
+          <li><%= link_to "Game", room_path, method: :get, class: "word-c" %></li>
+          <li><%= link_to "Charity", charities_path, method: :get, class: "word-c" %></li>
+          <li><%= link_to 'About Us', '/auth/twitter', class: "word-c" %></li>
+          <li><%= link_to 'Contact Us', '/auth/twitter', class: "word-c" %></li>
+
+        <% if current_user %>
+              <li><%= link_to "Sign Out", signout_path, id: "sign_out" %></li>
+          <%else%>
+            <li>  <%= link_to 'Sign in with Twitter', '/auth/twitter' %></li>
+            <li><%= link_to "Sign in with Google", "/auth/google_oauth2", id: "sign_in" %></li>
+        <%end%>
+
+
+
+          <% if admin? %>
+              <li><%= link_to 'Admin', '/admin' %></li>
+          <% end %>
+
+        </ul>
+
+          <ul class="nav navbar-right">
+            <li id="signin">
+              <% if current_user  %>
+                  Signed in as <%=current_user.name%>
+              <% else %>
+                  Not signed in
+              <%end%>
+            </li>
+
+          </ul>
+
+
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+</div>

@@ -1,0 +1,15 @@
+
+<h1 class="charity">Charity of the Day!! </h1>
+
+<% if flash[:error] %>
+    <div class="alert"><%= flash[:error] %></div>
+<% end %>
+
+<% @users.each do |f| %>
+
+    <% if current_user.id = f.id %>
+        <div> Name: <%=f.name%></div>
+        <div> Donated: <%=f.donated%></div>
+        <div>Earned: <%=f.earned%></div>
+    <%end%>
+<%end%>

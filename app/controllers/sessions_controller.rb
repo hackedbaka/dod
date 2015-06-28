@@ -13,11 +13,11 @@ class SessionsController < ApplicationController
     user = User.from_omniauth(env["omniauth.auth"])
     session[:user_id] = user.id
     flash[:success] = "Welcome, #{user.name}!"
-    redirect_to home_session_path
+    redirect_to charities_path
   end
 
   def auth_failure
-    redirect_to home_session_path
+    redirect_to games_path
   end
 
   def destroy
@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
       session.delete(:user_id)
       flash[:success] = 'See you!'
     end
-    redirect_to home_session_path
+    redirect_to games_path
   end
   
   private
