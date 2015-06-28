@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resources :questions, except: [:new, :edit]
   end
 
+
   resources :admin
 
   get "games/" => "games#index", as: :games

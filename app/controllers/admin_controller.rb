@@ -18,12 +18,14 @@ class AdminController < ApplicationController
     	question = Question.new(question_params)
         if question.save
         	redirect_to "/admin"
+        else
+          render :new
     	end
     end
 
     def edit
   		@question = Question.find(params[:id])
-	end
+	   end
 
     def update
   		@question = Question.find(params[:id])
@@ -33,13 +35,13 @@ class AdminController < ApplicationController
   		else
     		render :edit
   		end
-	end
+	 end
 
     def destroy
   		@question = Question.find(params[:id])
   		@question.destroy
   		redirect_to "/admin"
-	end
+	 end
 
     private
 
