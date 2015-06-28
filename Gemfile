@@ -67,3 +67,5 @@ end
 
 gem 'pusher'
 
+gem 'rails_12factor'
+
