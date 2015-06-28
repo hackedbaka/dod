@@ -10,12 +10,7 @@ describe("Using fixtures", function() {
         this.fixtures = fixture.load("room.html", true); // append these fixtures which were already cached
     });
 
-    it("check buttons", function() {
-
-        expect($("#button1")).toBe(1);
-        
-
-    });
+    
 
 
 });
