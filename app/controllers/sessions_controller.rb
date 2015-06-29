@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
     user = User.from_omniauth(env["omniauth.auth"])
     session[:user_id] = user.id
     flash[:success] = "Welcome, #{user.name}!"
-    redirect_to charities_path
+    redirect_to games_path
   end
 
   def auth_failure
