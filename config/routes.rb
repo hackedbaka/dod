@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
 
 
+  get 'about/index'
+
   namespace :api do
       resources :questions, except: [:new, :edit]
   end
@@ -9,7 +11,10 @@ Rails.application.routes.draw do
 
   resources :admin
 
-  get "games/" => "games#index", as: :games
+  root "games#index", as: :games
+
+  get 'about/index' => "about#index", as: :about
+
   get "games/room/" => "games#room", as: :room 
   post "games/answered" => "games#answered"
   post "games/start_another" => "games#start_another"
@@ -19,7 +24,8 @@ Rails.application.routes.draw do
   get 'auth/failure', to: redirect('/')
   get 'signout', to: 'sessions#destroy', as: 'signout'
 
-  root 'sessions#index',as: :home_session
+
+  # root 'sessions#index',as: :home_session
 
   get 'charities' => "charities#index"
 
