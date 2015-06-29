@@ -90,17 +90,17 @@ class GamesController < ApplicationController
 		
 		
 			
-				# user2 = User.find(@game.p2)
-				# if !user2.donated
-				# 	user2.donated = 0.0
-				# end
-				# if !user2.earned
-				# 	user2.earned = 0.0
-				# end
-				# user2.earned += @game.p1_bet
-				# user2.donated += @game.p2_bet
-				# user2.save
-        #
+				user2 = User.find(@game.p2)
+				if !user2.donated
+					user2.donated = 0.0
+				end
+				if !user2.earned
+					user2.earned = 0.0
+				end
+				user2.earned += @game.p1_bet
+				user2.donated += @game.p2_bet
+				user2.save
+        
 
 		Pusher[@game.room_id].trigger('kick_time', {});
 
