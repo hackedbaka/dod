@@ -1,5 +1,9 @@
 
-<h1 class="charity">Charity of the Day!! </h1>
+<div class="audio"><audio autoplay controls ><source src='/Moving Through Life.mp3' type="audio/mpeg"></audio></div>
+
+<h1 class="charity">Charity Stats </h1>
+<div class="charlogo"> <%= image_tag ("dod2.png") %></div>
+
 
 <% if flash[:error] %>
     <div class="alert"><%= flash[:error] %></div>
@@ -8,8 +12,21 @@
 <% @users.each do |f| %>
 
     <% if current_user.id = f.id %>
-        <div> Name: <%=f.name%></div>
-        <div> Donated: <%=f.donated%></div>
-        <div>Earned: <%=f.earned%></div>
+        <div class="name"> Name: <%=f.name%></div>
+        <div class="added"> Donated: <%=f.donated%></div>
+        <div class="added">Earned: <%=f.earned%></div>
     <%end%>
 <%end%>
+
+
+<script>
+    var vid = document.getElementById("myVideo");
+    vid.volume = 0.2;
+    function setHalfVolume() {
+        vid.volume = 0.2;
+    }
+    var audio = document.getElementById("audio");
+    function playAud() {
+        audio.play();
+    }
+</script>

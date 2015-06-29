@@ -1,3 +1,5 @@
+<div class="audio"><audio autoplay><source src='/Video Game Song.mp3' type="audio/mpeg"></audio></div>
+
 <h2 class="vegas">Room:<%=@game.id%></h2>
 
 <div class="room"> DOUBLE OR DONATE</div>
@@ -194,6 +196,18 @@ $(function() {
 
 
 });
+
+
+var vid = document.getElementById("myVideo");
+vid.volume = 0.2;
+function setHalfVolume() {
+    vid.volume = 0.2;
+}
+var audio = document.getElementById("audio");
+function playAud() {
+    audio.play();
+}
+
 
 
 </script>

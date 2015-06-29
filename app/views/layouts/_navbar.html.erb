@@ -3,7 +3,7 @@
 
   <nav role="navigation" id="control-nav">
     <div>
-      <%= image_tag ("Header.png"), class: "centro" %>
+      <%= image_tag ("HeaderFixed.png"), class: "centro" %>
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -21,8 +21,7 @@
           <li><%= link_to "Home", games_path, method: :get, class: "word-c" %></li>
           <li><%= link_to "Game", room_path, method: :get, class: "word-c" %></li>
           <li><%= link_to "Charity", charities_path, method: :get, class: "word-c" %></li>
-          <li><%= link_to 'About Us', '/auth/twitter', class: "word-c" %></li>
-          <li><%= link_to 'Contact Us', '/auth/twitter', class: "word-c" %></li>
+          <li><%= link_to 'About Us', about_path, class: "word-c" %></li>
 
         <% if current_user %>
               <li><%= link_to "Sign Out", signout_path, id: "sign_out" %></li>
